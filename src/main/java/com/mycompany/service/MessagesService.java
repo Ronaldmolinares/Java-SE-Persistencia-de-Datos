@@ -34,8 +34,11 @@ public class MessagesService {
         System.out.println("Operacion exitosa");
     }
     
-    public void ListMessage(){
-        
+    public void ListMessage() {
+        msgdao.readMessageDB();
+        for (Message messages : msgdao.getMessageList()) {
+            System.out.println(messages.toString());
+        }
     }
     
     public void deleteMessage(){

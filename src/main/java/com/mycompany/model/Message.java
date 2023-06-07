@@ -17,6 +17,15 @@ public class Message {
     public Message(){
         
     }
+
+    public Message(int id_message, String message, String autor_message, String date_message) {
+        this.id_message = id_message;
+        this.message = message;
+        this.autor_message = autor_message;
+        this.date_message = date_message;
+    }
+    
+    
     
     public Message(String message, String autor_message, String date_message) {
         this.message = message;
@@ -54,6 +63,11 @@ public class Message {
 
     public void setDate_message(String date_message) {
         this.date_message = date_message;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" + "ID Message: " + id_message + ", Message: " + message + ", Autor Message: " + autor_message + ", Date Message: " + date_message + '}';
     }
     
     

@@ -1,9 +1,6 @@
 package com.mycompany.messages_app;
 
-import com.mycompany.dao.MessageDAO;
-import com.mycompany.model.Message;
 import com.mycompany.service.MessagesService;
-import java.sql.Connection;
 import java.util.Scanner;
 
 /**
@@ -31,16 +28,18 @@ public class Messages_app {
 
             switch (option) {
                 case 1:
-                   messageservice.createMessage();
+                    messageservice.createMessage();
                     break;
                 case 2:
-                   messageservice.ListMessage();
+                    messageservice.ListMessage();
                     break;
                 case 3:
-                   messageservice.editMessage();
+                    messageservice.editMessage();
                     break;
                 case 4:
-                   messageservice.deleteMessage();
+                    messageservice.deleteMessage();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println("You have selected an invalid option!");
@@ -48,13 +47,7 @@ public class Messages_app {
             }
 
         } while (option != 5);
-
-//        ConnectionBD connection = new ConnectionBD();
-//        try {
-//            Connection cnx = connection.get_connection();
-//       } catch (Exception e) {
-//            System.out.println(e);
-//        }
+        System.out.println("Hasta La Proxima.");
     }
 
     public static void main(String[] args) {
