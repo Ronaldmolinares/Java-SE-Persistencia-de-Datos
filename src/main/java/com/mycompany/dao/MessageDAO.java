@@ -20,15 +20,13 @@ import java.util.ArrayList;
 public class MessageDAO {
 
     ArrayList<Message> messageList = new ArrayList<Message>();
+    ConnectionBD db_connect = new ConnectionBD();
 
     public ArrayList<Message> getMessageList() {
         return messageList;
     }
 
     public void createMessageDB(Message message) {
-        //Conectamos con nuestra base de datos
-        ConnectionBD db_connect = new ConnectionBD();
-
         try (Connection con = db_connect.get_connection()) {
             PreparedStatement ps = null;
             try {
@@ -50,8 +48,6 @@ public class MessageDAO {
     }
 
     public void readMessageDB() {
-        //Creamos la conexion con la base de datos
-        ConnectionBD db_connect = new ConnectionBD();
         PreparedStatement ps = null;
         //Perimite traer los datos en fila 
         ResultSet rs = null;
@@ -74,20 +70,69 @@ public class MessageDAO {
     }
 
     public void deleteMessageDB(int id_message) {
-        ConnectionBD db_connect = new ConnectionBD();
-        try (Connection con = db_connect.get_connection()) {
-            PreparedStatement ps = null;
-            try {
+        try (Connection connection = db_connect.get_connection()) {
+            PreparedStatement ps;
+            ResultSet res;
+            String recordAccount = "SELECT COUNT(id_message) FROM messages WHERE id_message= " + id_message + "";
+            ps = connection.prepareStatement(recordAccount);
+            res = ps.executeQuery();
+            if (res.next()) {
+                String count = res.getString("count(id_message)");
+                int existe = Integer.parseInt(count);
+                if (existe > 0) {
+                    try {
+                        String query = "DELETE FROM messages WHERE id_message = ?";
+                        ps = connection.prepareStatement(query);
+                        ps.setInt(1, id_message);
+                        ps.executeUpdate();
+                        System.out.println("Mensaje eliminado");
+                        System.out.println("\n");
 
-            } catch (Exception e) {
+                    } catch (SQLException ex) {
+                        System.out.println(ex);
+                    }
+                } else {
+                    System.out.println("El ID del mensaje no existe.");
+                }
             }
+
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public void editMessageDB(Message message) {
+        try (Connection con = db_connect.get_connection()) {
+            PreparedStatement ps = null;
 
+            ResultSet res;
+            String recordAccount = "SELECT COUNT(id_message) FROM messages WHERE id_message= " + message.getId_message() + "";
+            ps = con.prepareStatement(recordAccount);
+            res = ps.executeQuery();
+            if (res.next()) {
+                String count = res.getString("count(id_message)");
+                int existe = Integer.parseInt(count);
+                if (existe > 0) {
+
+                    try {
+                        String query = "UPDATE messages SET message = ? WHERE id_message = ?";
+                        ps = con.prepareStatement(query);
+                        ps.setString(1, message.getMessage());
+                        ps.setInt(2, message.getId_message());
+                        ps.executeUpdate();
+                        System.out.println("Mensaje actualizado con exito.");
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex);
+                        System.out.println("Error al actualizar el mensaje.");
+                    }
+                } else {
+                    System.out.println("El ID del mensaje no existe.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
 }

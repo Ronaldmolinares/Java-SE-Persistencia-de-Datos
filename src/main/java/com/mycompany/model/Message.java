@@ -70,6 +70,9 @@ public class Message {
         return "Message{" + "ID Message: " + id_message + ", Message: " + message + ", Autor Message: " + autor_message + ", Date Message: " + date_message + '}';
     }
     
+    public String toString2() {
+        return "ID: " + id_message + " --- Message: " + message + " --- Autor Message: " + autor_message + " --- Date Message: " + date_message;
+    }
     
     
 }

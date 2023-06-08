@@ -19,8 +19,8 @@ public class Messages_app {
             System.out.println(" Aplicacion de Mensajes ");
             System.out.println(" 1. Crear mensaje");
             System.out.println(" 2. Listar Mensajes");
-            System.out.println(" 3. Editar Mensajes");
-            System.out.println(" 4. Eliminar Mensajes");
+            System.out.println(" 3. Eliminar Mensajes");
+            System.out.println(" 4. Editar Mensajes");
             System.out.println(" 5. Salir");
             System.out.println(" Seleccione una opción: ");
 
@@ -34,10 +34,10 @@ public class Messages_app {
                     messageservice.ListMessage();
                     break;
                 case 3:
-                    messageservice.editMessage();
+                    messageservice.deleteMessage();
                     break;
                 case 4:
-                    messageservice.deleteMessage();
+                    messageservice.editMessage();
                     break;
                 case 5:
                     break;

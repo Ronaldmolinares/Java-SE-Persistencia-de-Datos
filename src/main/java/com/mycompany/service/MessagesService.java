@@ -15,9 +15,9 @@ import java.util.Scanner;
 public class MessagesService {
     
     MessageDAO msgdao = new MessageDAO();
+    Scanner sc = new Scanner(System.in);
     
     public void createMessage(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("Escribe tu mensaje: ");
         String message = sc.nextLine();
         
@@ -42,10 +42,24 @@ public class MessagesService {
     }
     
     public void deleteMessage(){
-        
+        System.out.println("Ingrese el ID del mensaje a eliminar: ");
+        for (Message messages : msgdao.getMessageList()) {
+            System.out.println(messages.toString2());
+        }
+        int id_delete = sc.nextInt();
+        msgdao.deleteMessageDB(id_delete);
     }
     
     public void editMessage(){
+        System.out.println("Escribe el nuevo mensaje...");
+        String new_message = sc.nextLine();
+        System.out.println("indica el ID del mensjae a editar");
+        int id_message = Integer.parseInt(sc.nextLine());
+    
+        Message updateM = new Message();
+        updateM.setId_message(id_message);
+        updateM.setMessage(new_message);
         
+        msgdao.editMessageDB(updateM);
     }
 }
